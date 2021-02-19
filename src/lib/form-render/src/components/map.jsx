@@ -26,16 +26,24 @@ export default function map(p) {
               console.log(
                 `%c${key}:`,
                 'color: #47B04B; font-weight: 700;',
-                val
+                val,
               );
               console.log(
                 `%c${p.name}:`,
                 'color: #00A7F7; font-weight: 700;',
-                value
+                value,
               );
               console.groupEnd();
             }
-            p.onChange(p.name, value);
+            //key:变化的key
+            //value:整个formdata
+            //val:key对应的值
+            let obj = {
+              key,
+              val,
+            };
+            p.onChange(obj, value);
+            // p.onChange(p.name, value);
           },
           rootValue: p.value,
         });

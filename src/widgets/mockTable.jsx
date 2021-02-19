@@ -12,7 +12,27 @@ const searchSchema = {
       format: 'date',
       'ui:width': '25%',
     },
+    title: {
+      title: '标题',
+      type: 'string',
+      'x-component-props': {},
+      name: 'title',
+      key: 'title',
+      'ui:width': '25%',
+    },
+    status: {
+      title: '状态',
+      type: 'string',
+      enum: ['null', '0', '1'],
+      enumNames: ['全部', '已解决', '未解决'],
+      name: 'state',
+      key: 'state',
+      'ui:width': '25%',
+    },
   },
+  displayType: 'row',
+  showDescIcon: true,
+  column: 3,
 };
 // 配置完全透传antd table
 const columns = [
@@ -55,12 +75,30 @@ const searchApi = params => {
         id: 624748504,
         title: 'mock数据1',
         state: 'closed',
-        created_at: '2020-05-26T09:42:56Z',
+        created_at: '2021-01-12T09:42:56Z',
       },
       {
         id: 624691229,
         title: 'mock数据2',
         state: 'open',
+        created_at: '2021-01-15T08:19:22Z',
+      },
+      {
+        id: 624691235,
+        title: 'mock数据3',
+        state: 'closed',
+        created_at: '2021-01-12T08:19:22Z',
+      },
+      {
+        id: 6246912240,
+        title: 'mock数据4',
+        state: 'open',
+        created_at: '2020-12-26T08:19:22Z',
+      },
+      {
+        id: 624691241,
+        title: 'mock数据5',
+        state: 'closed',
         created_at: '2020-05-26T08:19:22Z',
       },
     ],
@@ -86,4 +124,4 @@ const Demo = () => {
   );
 };
 
-export default searchApi;
+export default Demo;

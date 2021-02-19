@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
-import Generator from 'fr-generator';
+import Generator from '../FRGenerator';
 
 const defaultValue = {
-  propsSchema: {
+  schema: {
     type: 'object',
     properties: {},
   },
@@ -13,17 +13,20 @@ const defaultValue = {
 
 const Demo = () => {
   const ref = useRef();
-
-  const onClick = () => {
-    ref.current.copyValue();
-    window.open('/_demos/index');
-  };
+  const extraButtons = [
+    {
+      text: '保存',
+      onClick: () => {
+        alert(1);
+      },
+    },
+  ];
   return (
-    <div style={{ height: '100vh' }}>
+    <div style={{ height: '80vh' }}>
       <Generator
         ref={ref}
         defaultValue={defaultValue}
-        // extraButtons={[{ text: '去playground验证', onClick }]}
+        extraButtons={extraButtons}
       />
     </div>
   );

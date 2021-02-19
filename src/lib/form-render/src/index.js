@@ -4,7 +4,7 @@ import React, {
   useMemo,
   useImperativeHandle,
   useState,
-  Fragment
+  Fragment,
 } from 'react';
 import useDebouncedCallback from 'use-debounce/lib/useDebouncedCallback';
 import { usePrevious } from './hooks';
@@ -78,7 +78,6 @@ function FormRender({
   labelWidth = 110,
   useLogger = false,
   forwardedRef,
-  extralButtons
 }) {
   const isUserInput = useRef(false); // 状态改变是否来自于用户操作
   const originWidgets = useRef();
@@ -86,12 +85,10 @@ function FormRender({
   const firstRender = useRef(true);
   const previousSchema = usePrevious(schema);
   const previousData = usePrevious(formData);
-
   const [isEditing, setEditing] = useState(false);
   const debouncedSetEditing = useDebouncedCallback(setEditing, 350);
 
   const data = useMemo(() => resolve(schema, formData), [schema, formData]);
-
   useEffect(() => {
     onChange(data);
     updateValidation();
@@ -136,7 +133,7 @@ function FormRender({
     // 开始编辑，节流
     setEditing(true);
     debouncedSetEditing.callback(false);
-    onChange(val);
+    onChange(key, val);
     onValidate(getValidateList(val, schema));
   };
 
@@ -177,7 +174,6 @@ function FormRender({
     useLogger,
     formData: data,
     isEditing,
-    extralButtons
   };
 
   const _fields = {
@@ -188,13 +184,10 @@ function FormRender({
     // 字段 type 与 widgetName 的映射关系
     mapping,
   };
-  console.log("extralButtons",extralButtons,settings.extralButtons);
+
   return (
     <div className={`${className} fr-wrapper`}>
       <RenderField {...settings} fields={_fields} onChange={handleChange} />
-      {
-        settings.extralButtons?<Fragment>{settings.extralButtons}</Fragment>:null
-      }
     </div>
   );
 }
@@ -217,7 +210,6 @@ FormRender.propTypes = {
   readOnly: PropTypes.bool,
   labelWidth: PropTypes.number,
   useLogger: PropTypes.bool,
-
 };
 
 export default fetcher(Wrapper);
